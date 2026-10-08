@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عربيتي | تعلّم العربية بمتعة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFFBF2;--card:#fff;--ink:#1f2937;--muted:#6b7280;--green:#0e9f6e;--green2:#057a55;--gold:#E9A319;--teal:#0e7c86;--pink:#fef3e8;--border:#f0e3c8;--shadow:0 10px 30px rgba(0,0,0,.08);--radius:20px}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Cairo',system-ui;background:var(--bg);color:var(--ink);line-height:1.8}
+header{position:sticky;top:0;z-index:50;background:rgba(255,251,242,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav{max-width:1150px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:10px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.35rem;white-space:nowrap}
+.logo-badge{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--green),var(--teal));display:grid;place-items:center;color:#fff;font-family:'Amiri';font-size:1.7rem}
+.links{display:flex;gap:14px;font-weight:700}
+.links a{padding:8px 12px;border-radius:12px}
+.links a:hover{background:#fff;box-shadow:var(--shadow)}
+.nav-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+select{font-family:inherit;font-weight:700;border:2px solid var(--border);border-radius:12px;padding:8px 12px;background:#fff;cursor:pointer}
+.btn{border:0;cursor:pointer;font-family:inherit;font-weight:800;border-radius:14px;padding:12px 22px;transition:.2s}
+.btn-primary{background:linear-gradient(135deg,var(--green),var(--teal));color:#fff;box-shadow:0 8px 20px rgba(14,159,110,.3)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#d97306);color:#fff}
+.btn-ghost{background:#fff;border:2px solid var(--border)}
+.burger{display:none;font-size:1.6rem;background:none;border:0;cursor:pointer}
+.voice-bar{max-width:1150px;margin:10px auto 0;padding:0 18px}
+.voice-card{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:#111827;color:#e5e7eb;border-radius:16px;padding:12px 16px;box-shadow:var(--shadow);font-size:.92rem}
+.voice-card b{color:#fbbf24}
+.voice-card select{max-width:220px;font-size:.85rem}
+.switch{display:inline-flex;align-items:center;gap:6px;background:#1f2937;border:1px solid #374151;border-radius:100px;padding:6px 12px;cursor:pointer}
+.switch input{accent-color:var(--green);width:18px;height:18px}
+.hero{max-width:1150px;margin:auto;padding:28px 18px 10px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--border);padding:6px 14px;border-radius:100px;font-weight:700;font-size:.9rem;box-shadow:var(--shadow)}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.35;margin:14px 0;font-weight:900}
+.hero h1 .hl{color:var(--green2)}
+.hero p{color:var(--muted);font-size:1.1rem}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.stats{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+.stat{background:#fff;border:1px solid var(--border);border-radius:16px;padding:10px 18px;min-width:130px;text-align:center;box-shadow:var(--shadow)}
+.stat b{font-size:1.4rem;display:block}
+.hero-card{background:linear-gradient(180deg,#0e9f6e,#0b6e4f);color:#fff;border-radius:28px;padding:26px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero-card::before{content:'ض';position:absolute;font-family:'Amiri';font-size:16rem;opacity:.12;left:-20px;top:-40px}
+.big-word{font-family:'Amiri';font-size:4.5rem;text-align:center;margin:10px 0}
+.translit{background:rgba(255,255,255,.15);border-radius:14px;padding:10px;text-align:center}
+.speak-row{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.speak-row button{flex:1;min-width:140px}
+main{max-width:1150px;margin:auto;padding:10px 18px 60px}
+section{margin-top:44px}
+.sec-head{text-align:center;margin-bottom:20px}
+.sec-head h2{font-size:clamp(1.4rem,3.5vw,2.1rem);margin:0;font-weight:900}
+.sec-head p{color:var(--muted);margin:6px 0 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+.grid-letters{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px}
+.letter-card{padding:16px 10px;text-align:center;cursor:pointer;transition:.2s;border:2px solid transparent}
+.letter-card:hover,.letter-card.active{border-color:var(--green);transform:translateY(-4px)}
+.letter-char{font-family:'Amiri';font-size:3rem;line-height:1}
+.letter-name{font-weight:800;margin-top:6px}
+.letter-trans{color:var(--muted);font-size:.85rem;direction:ltr}
+.letter-ex{background:var(--pink);border-radius:10px;margin-top:8px;padding:4px 8px;font-size:.9rem}
+.letter-detail{margin-top:16px;padding:22px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.letter-detail .big{font-family:'Amiri';font-size:5rem}
+.tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.tab{padding:10px 20px;border-radius:100px;background:#fff;border:2px solid var(--border);font-weight:800;cursor:pointer;font-family:inherit}
+.tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.grid-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:14px}
+.vocab{perspective:800px;cursor:pointer}
+.vocab-inner{position:relative;min-height:175px;transform-style:preserve-3d;transition:.5s}
+.vocab.flipped .vocab-inner{transform:rotateY(180deg)}
+html[dir="ltr"] .vocab.flipped .vocab-inner{transform:rotateY(-180deg)}
+.vocab-face{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;border-radius:18px;background:#fff;border:1px solid var(--border);box-shadow:var(--shadow);gap:2px}
+.vocab-back{transform:rotateY(180deg);background:linear-gradient(135deg,#1f2937,#0e7c86);color:#fff}
+html[dir="ltr"] .vocab-back{transform:rotateY(-180deg)}
+.vocab-emoji{font-size:2.2rem}
+.vocab-ar{font-weight:900;font-size:1.3rem}
+.vocab-en{font-size:.92rem;opacity:.8}
+.audio-btn{margin-top:8px;background:#f3f4f6;border:0;border-radius:100px;width:40px;height:40px;cursor:pointer;font-size:1.15rem}
+.vocab-back .audio-btn{background:rgba(255,255,255,.2)}
+.quiz-box{padding:26px;max-width:700px;margin:auto}
+.progress{height:10px;background:#f3e8c9;border-radius:100px;overflow:hidden;margin:12px 0 20px}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--gold));width:0;transition:.4s}
+.opt{display:block;width:100%;background:#fff;border:2px solid var(--border);border-radius:14px;padding:12px 16px;margin:10px 0;font-family:inherit;font-weight:700;cursor:pointer;font-size:1rem}
+html[dir="rtl"] .opt{text-align:right} html[dir="ltr"] .opt{text-align:left}
+.opt:hover{border-color:var(--green)}
+.opt.correct{background:#d1fae5;border-color:var(--green)}
+.opt.wrong{background:#fee2e2;border-color:#ef4444}
+.quiz-feedback{text-align:center;font-weight:800;margin:12px 0;min-height:28px}
+.practice{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pad{background:#1f2937;color:#fff;border-radius:20px;padding:22px}
+.pad canvas{width:100%;height:220px;background:#fff;border-radius:14px;touch-action:none;cursor:crosshair}
+.listen-box{padding:22px;text-align:center}
+.listen-word{font-family:'Amiri';font-size:3.5rem;margin:10px 0;min-height:80px}
+input[type=text]{width:100%;padding:12px 16px;border-radius:12px;border:2px solid var(--border);font-family:inherit;font-size:1.1rem;text-align:center}
+.game-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:640px;margin:auto}
+.mcard{background:#fff;border:2px solid var(--border);border-radius:14px;min-height:90px;display:grid;place-items:center;font-weight:800;cursor:pointer;font-size:1.1rem;transition:.2s;padding:8px;text-align:center}
+.mcard.open{background:#fef3c7;border-color:var(--gold)}
+.mcard.done{background:#d1fae5;border-color:var(--green);cursor:default}
+.splash{position:fixed;inset:0;z-index:200;background:radial-gradient(1200px 600px at 50% -10%,#14b8a6 0%,#0e9f6e 35%,#073b2e 100%);display:flex;align-items:center;justify-content:center;padding:20px;transition:opacity .6s,visibility .6s}
+.splash.hide{opacity:0;visibility:hidden;pointer-events:none}
+.splash-card{background:rgba(255,255,255,.97);border-radius:28px;max-width:520px;width:100%;text-align:center;padding:36px 28px;box-shadow:0 30px 80px rgba(0,0,0,.35);animation:pop .7s ease}
+@keyframes pop{from{transform:translateY(24px) scale(.97);opacity:0}to{transform:none;opacity:1}}
+.splash-logo{width:110px;height:110px;margin:0 auto;border-radius:32px;background:linear-gradient(135deg,#0e9f6e,#0e7c86 60%,#E9A319 130%);display:grid;place-items:center;color:#fff;font-family:'Amiri';font-size:4rem;box-shadow:0 15px 35px rgba(14,159,110,.4);animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.splash-name{font-weight:900;font-size:2.2rem;margin:12px 0 0}
+.splash-tag{display:inline-block;background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid #f59e0b;color:#92400e;font-weight:900;border-radius:100px;padding:8px 20px;margin:12px 0;font-size:1.15rem}
+.splash-desc{color:var(--muted)}
+.splash-welcome{font-family:'Amiri';font-size:1.5rem;margin:10px 0;color:#065f46}
+footer{background:#111827;color:#d1d5db;margin-top:40px;padding:34px 18px;text-align:center}
+footer b{color:#fff}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.links{display:none;position:absolute;top:68px;right:12px;left:12px;background:#fff;border:1px solid var(--border);border-radius:16px;flex-direction:column;padding:12px;box-shadow:var(--shadow);z-index:60}.links.show{display:flex}.burger{display:block}.practice{grid-template-columns:1fr}.game-grid{grid-template-columns:repeat(3,1fr)}.nav{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+<!-- شاشة الافتتاح: الشعار والترحيب والهوية -->
+<div class="splash" id="splash">
+  <div class="splash-card">
+    <div class="splash-logo">ع</div>
+    <div class="splash-name">عربيتي <span style="color:var(--green2)">• Arabiyati</span></div>
+    <div class="splash-tag">اِسمَعها صَحّ • اُنطُقها فَصِيحَة</div>
+    <p class="splash-desc" data-i18n="splash_desc">العربية للجميع — من أول حرف إلى أول حوار، بصوتٍ فصيح ونطقٍ سليم 100%</p>
+    <div class="splash-welcome">🌙 أهلاً بك يا صديق العربية! Welcome! Bienvenue!</div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+      <button class="btn btn-primary" onclick="enterSite(true)" data-i18n="enter_btn">ادخل وابدأ التعلم 🚀</button>
+      <button class="btn btn-ghost" onclick="enterSite(false)">🔊 <span data-i18n="listen">استمع</span></button>
+    </div>
+    <small style="color:var(--muted)">Hear it right • Speak it fus-ha • اسمع • انطق • تألق</small>
+  </div>
+</div>
+<header>
+<nav class="nav">
+  <div class="logo"><div class="logo-badge">ع</div><span>عربيتي <em style="color:var(--green2);font-style:normal">• Arabiyati</em></span></div>
+  <div class="links" id="links">
+    <a href="#letters" data-i18n="nav_letters">الحروف</a>
+    <a href="#vocab" data-i18n="nav_vocab">المفردات</a>
+    <a href="#quiz" data-i18n="nav_quiz">الاختبار</a>
+    <a href="#practice" data-i18n="nav_practice">النطق والكتابة</a>
+    <a href="#game" data-i18n="nav_game">لعبة الذاكرة</a>
+  </div>
+  <div class="nav-tools">
+    <select id="langSelect" title="UI Language / لغة الموقع">
+      <option value="ar">🌍 العربية</option>
+      <option value="en">🇬🇧 English</option>
+      <option value="fr">🇫🇷 Français</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="tr">🇹🇷 Türkçe</option>
+      <option value="ur">🇵🇰 اردو</option>
+      <option value="id">🇮🇩 Indonesia</option>
+    </select>
+    <button class="btn btn-primary" style="padding:9px 16px" data-i18n="start_btn" onclick="document.getElementById('letters').scrollIntoView({behavior:'smooth'})">ابدأ التعلم</button>
+    <button class="burger" onclick="document.getElementById('links').classList.toggle('show')">☰</button>
+  </div>
+</nav>
+</header>
+
+<div class="voice-bar">
+  <div class="voice-card">
+    <b>🎙️ <span data-i18n="voice_title">الصوت العربي الاحترافي</span>:</b>
+    <select id="voiceSelect"><option value="">... جارٍ تحميل الأصوات</option></select>
+    <label data-i18n="speed_label">السرعة:</label>
+    <select id="rateSelect" style="max-width:130px">
+      <option value="0.65" data-i18n="slow">🐢 بطيء للتعلم</option>
+      <option value="0.9" selected data-i18n="normal">▶️ عادي</option>
+    </select>
+    <label class="switch"><input type="checkbox" id="premiumChk"> <span data-i18n="premium_label">جودة عالية (إنترنت)</span></label>
+    <label class="switch"><input type="checkbox" id="teachSlow" checked> <span>🐢 نطق تعليمي مقطّع</span></label>
+    <button class="btn btn-gold" style="padding:8px 16px" onclick="testVoice()">🔊 <span data-i18n="test_voice">جرّب الصوت</span></button>
+  </div>
+</div>
+
+<div class="hero">
+  <div>
+    <div class="badge">🌙 <span data-i18n="hero_badge">تفاعلي • صوتي • مجاني — لغير الناطقين بالعربية</span></div>
+    <h1 data-i18n="hero_title">تعلّم العربية من الصفر<br>استمع • تكلّم • العب</h1>
+    <p data-i18n="hero_sub">دروس قصيرة ممتعة: الحروف الهجائية مع الصوت، مفردات يومية مع بطاقات مقلوبة، اختبار تفاعلي، تدريب على النطق والكتابة. يعمل على الجوال والحاسوب بدون تسجيل.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="speak('مَرحَباً بِكَ في مَوقِعِ عَرَبِيَّتي لِتَعَلُّمِ اللُّغَةِ العَرَبِيَّة')">🔊 <span data-i18n="listen_welcome">استمع للترحيب</span></button>
+      <button class="btn btn-ghost" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">🎯 <span data-i18n="try_quiz">جرّب الاختبار</span></button>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>28</b><span data-i18n="stat1">حرفاً صوتياً</span></div>
+      <div class="stat"><b>+40</b><span data-i18n="stat2">كلمة وصورة</span></div>
+      <div class="stat"><b>8</b><span data-i18n="stat3">أسئلة تفاعلية</span></div>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div style="font-weight:800;opacity:.9">🌟 <span data-i18n="word_day">كلمة اليوم</span></div>
+    <div class="big-word">مَرْحَباً</div>
+    <div class="translit">Marhaban — Hello!</div>
+    <div class="speak-row">
+      <button class="btn btn-gold" onclick="speak('مَرحَباً')">🔊 <span data-i18n="listen">استمع</span></button>
+      <button class="btn btn-ghost" onclick="speak('مَرحَباً، كَيفَ حالُكَ؟')">💬 <span data-i18n="full_sentence">جملة كاملة</span></button>
+    </div>
+  </div>
+</div>
+
+<main>
+<section id="letters">
+  <div class="sec-head"><h2 data-i18n="letters_title">🔤 الحروف الهجائية — اضغط على أي حرف لسماعه</h2><p data-i18n="letters_sub">كل حرف مع النطق الصحيح بالتشكيل ومثال.</p></div>
+  <div class="grid-letters" id="lettersGrid"></div>
+  <div class="card letter-detail" id="letterDetail"></div>
+</section>
+
+<section id="vocab">
+  <div class="sec-head"><h2 data-i18n="vocab_title">📚 مفردات يومية — اقلب البطاقة</h2><p data-i18n="vocab_sub">اضغط على البطاقة لرؤية المعنى بلغتك، واضغط 🔊 لسماع النطق العربي الفصيح.</p></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="grid-vocab" id="vocabGrid"></div>
+</section>
+
+<section id="quiz">
+  <div class="sec-head"><h2 data-i18n="quiz_title">🎯 اختبار سريع — هل أنت مستعد؟</h2><p data-i18n="quiz_sub">8 أسئلة متنوعة مع تصحيح فوري ونتيجة نهائية.</p></div>
+  <div class="card quiz-box">
+    <div style="display:flex;justify-content:space-between;font-weight:800"><span id="qCount"></span><span>⭐ <span data-i18n="points">النقاط</span>: <span id="score">0</span></span></div>
+    <div class="progress"><i id="bar"></i></div>
+    <h3 id="qText" style="margin:0 0 8px"></h3>
+    <div id="opts"></div>
+    <div class="quiz-feedback" id="feedback"></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-primary" onclick="nextQ()" style="flex:1">⬅ <span data-i18n="next">التالي</span></button>
+      <button class="btn btn-ghost" onclick="restartQuiz()">🔄 <span data-i18n="restart">إعادة</span></button>
+    </div>
+  </div>
+</section>
+
+<section id="practice">
+  <div class="sec-head"><h2 data-i18n="practice_title">✍️🎙️ تدريب النطق والكتابة</h2><p data-i18n="practice_sub">تدرّب على كتابة الحرف بإصبعك، واختبر أذنك بكتابة ما تسمعه.</p></div>
+  <div class="practice">
+    <div class="pad">
+      <h3 style="margin-top:0" data-i18n="writing_title">✍️ لوحة الكتابة — ارسم حرف: ب ، س ، ع</h3>
+      <canvas id="pad"></canvas>
+      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+        <button class="btn btn-gold" onclick="clearPad()" style="flex:1" data-i18n="clear">🧹 مسح</button>
+        <button class="btn btn-primary" onclick="speak('حاوِل كِتابَةَ حَرفِ العَين')" style="flex:1" data-i18n="audio_example">🔊 مثال صوتي</button>
+      </div>
+    </div>
+    <div class="card listen-box">
+      <h3 style="margin-top:0" data-i18n="listen_write_title">🎧 استمع واكتب</h3>
+      <p style="color:var(--muted)" data-i18n="listen_write_sub">اضغط استمع ثم اكتب الكلمة بالعربية</p>
+      <div class="listen-word" id="listenWord">؟</div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="newListen()">🔊 <span data-i18n="new_word_btn">استمع لكلمة جديدة</span></button>
+        <button class="btn btn-ghost" onclick="replayListen()">↻ <span data-i18n="replay">إعادة الصوت</span></button>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:10px">
+        <input type="text" id="listenInput" data-i18n-ph="input_ph" placeholder="اكتب ما سمعت هنا...">
+        <button class="btn btn-gold" onclick="checkListen()" data-i18n="check">تحقق</button>
+      </div>
+      <div class="quiz-feedback" id="listenFb"></div>
+    </div>
+  </div>
+</section>
+
+<section id="game">
+  <div class="sec-head"><h2 data-i18n="game_title">🃏 لعبة الذاكرة — طابق العربية مع معناها</h2><p><span data-i18n="tries_label">المحاولات</span>: <b id="tries">0</b></p></div>
+  <div class="game-grid" id="gameGrid"></div>
+  <div style="text-align:center;margin-top:14px"><button class="btn btn-primary" onclick="initGame()">🔄 <span data-i18n="new_game">لعبة جديدة</span></button></div>
+</section>
+</main>
+
+<footer>
+  <b>عربيتي • Arabiyati</b> — <span data-i18n="footer_line">صُنع بحب لتعليم العربية لغير الناطقين بها 🌍</span><br>
+  <small data-i18n="footer_small">صوت عربي فصيح بجودتين: صوت الجهاز + صوت عالي الجودة عبر الإنترنت. بالتوفيق! مع السلامة 👋</small>
+</footer>
+
+<script>
+/* ============ 1) صوت عربي فصيح 100% — محرك محسّن ============
+   الفكرة: كل كلمة تُنطق من صيغة مشكولة بالكامل + إيقاع بطيء + تقطيع تعليمي.
+   Native (أفضل صوت عربي في الجهاز) هو الأساس، و Premium (Google) احتياطي عالي الجودة.
+*/
+let AR_VOICES=[], chosenVoiceURI=localStorage.getItem('ar_voice')||null;
+let premiumAudio=null;
+/* قاموس التشكيل الفصيح: كل كلمة في الموقع بصيغتها السليمة */
+const FASIH={
+'مرحبا':'مَرحَبًا','مرحباً':'مَرحَبًا','صباح الخير':'صَبَاحُ الخَير','مساء الخير':'مَسَاءُ الخَير',
+'مع السلامة':'مَعَ السَّلَامَة','شكرا':'شُكرًا','شكراً':'شُكرًا','عفواً':'عَفوًا','عفوا':'عَفوًا',
+'كيف حالك؟':'كَيفَ حَالُكَ؟','بخير':'بِخَير','واحد':'وَاحِد','اثنان':'اِثنَان','ثلاثة':'ثَلَاثَة',
+'أربعة':'أَربَعَة','خمسة':'خَمسَة','عشرة':'عَشَرَة','أحمر':'أَحمَر','أزرق':'أَزرَق','أخضر':'أَخضَر',
+'أصفر':'أَصفَر','أسود':'أَسوَد','أبيض':'أَبيَض','تفاح':'تُفَّاح','خبز':'خُبز','ماء':'مَاء',
+'حليب':'حَلِيب','أرز':'أَرُزّ','شاي':'شَاي','أب':'أَب','أم':'أُمّ','أخ':'أَخ','أخت':'أُخت',
+'طفل':'طِفل','عائلة':'عَائِلَة','أسد':'أَسَد','باب':'بَاب','ثعلب':'ثَعلَب','جمل':'جَمَل',
+'حصان':'حِصَان','دار':'دَار','ذرة':'ذُرَة','رجل':'رَجُل','زهرة':'زَهرَة','سمك':'سَمَك',
+'شمس':'شَمس','صندوق':'صُندُوق','ضفدع':'ضِفدَع','طائر':'طَائِر','ظرف':'ظَرف','عسل':'عَسَل',
+'غيمة':'غَيمَة','فيل':'فِيل','قمر':'قَمَر','كتاب':'كِتَاب','ليمون':'لَيمُون','نجمة':'نَجمَة',
+'هلال':'هِلَال','وردة':'وَردَة','يد':'يَد','سلام':'سَلَام','أحسنت':'أَحسَنت','صحيح':'صَحِيح',
+'مبروك':'مَبرُوك، فُزت','فزت':'فُزت'
+};
+const LETTER_SAY={'ا':'أَلِف','ب':'بَاء','ت':'تَاء','ث':'ثَاء','ج':'جِيم','ح':'حَاء','خ':'خَاء','د':'دَال','ذ':'ذَال','ر':'رَاء','ز':'زَاي','س':'سِين','ش':'شِين','ص':'صَاد','ض':'ضَاد','ط':'طَاء','ظ':'ظَاء','ع':'عَين','غ':'غَين','ف':'فَاء','ق':'قَاف','ك':'كَاف','ل':'لَام','م':'مِيم','ن':'نُون','ه':'هَاء','و':'وَاو','ي':'يَاء'};
+function vocalize(text){
+  if(!text)return text;
+  let out=text;
+  Object.keys(FASIH).sort((a,b)=>b.length-a.length).forEach(k=>{out=out.split(k).join(FASIH[k]);});
+  return out;
+}
+function scoreVoice(v){
+  let s=0; const n=(v.name+' '+v.lang).toLowerCase();
+  if(n.includes('google'))s+=20; if(n.includes('natural'))s+=16; if(n.includes('neural'))s+=14;
+  if(n.includes('hoda')||n.includes('naayf')||n.includes('salma')||n.includes('zeina')||n.includes('dalia')||n.includes('maged')||n.includes('tariq'))s+=12;
+  if(v.lang==='ar-SA')s+=8; else if((v.lang||'').toLowerCase().startsWith('ar'))s+=5;
+  if(v.localService===false)s+=4;
+  return s;
+}
+function loadVoices(){
+  try{
+    const all=speechSynthesis.getVoices()||[];
+    AR_VOICES=all.filter(v=>v.lang&&v.lang.toLowerCase().startsWith('ar')).sort((a,b)=>scoreVoice(b)-scoreVoice(a));
+    const sel=document.getElementById('voiceSelect'); sel.innerHTML='';
+    if(!AR_VOICES.length){sel.innerHTML='<option value="">🔊 صوت عربي افتراضي</option>';return;}
+    AR_VOICES.forEach(v=>{
+      const o=document.createElement('option');o.value=v.voiceURI; o.textContent='🎙️ '+v.name+' ('+v.lang+')'; sel.appendChild(o);
+    });
+    if(chosenVoiceURI&&[...sel.options].some(o=>o.value===chosenVoiceURI))sel.value=chosenVoiceURI;
+    else{sel.selectedIndex=0;chosenVoiceURI=sel.value;localStorage.setItem('ar_voice',chosenVoiceURI);}
+    sel.onchange=()=>{chosenVoiceURI=sel.value;localStorage.setItem('ar_voice',chosenVoiceURI);testVoice();};
+  }catch(e){}
+}
+if('speechSynthesis' in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices;}
+function stopAllAudio(){try{speechSynthesis.cancel();}catch(e){} if(premiumAudio){try{premiumAudio.pause();}catch(e){} premiumAudio=null;}}
+function chunkForGoogle(text){
+  const parts=[]; let cur='';
+  text.split(/[؛.،]/).join('،').split('،').forEach(p=>{p=p.trim(); if(!p)return;
+    if((cur+'، '+p).length>150){parts.push(cur);cur=p;}else cur=cur?cur+'، '+p:p;});
+  if(cur)parts.push(cur); return parts.length?parts:[text];
+}
+let premiumQueue=[];
+function speakPremium(text){
+  stopAllAudio(); premiumQueue=[];
+  const fasih=vocalize(text);
+  const parts=fasih.length>150?chunkForGoogle(fasih):[fasih];
+  let i=0;
+  const playNext=()=>{
+    if(i>=parts.length)return;
+    const url='https://translate.google.com/translate_tts?ie=UTF-8&tl=ar&q='+encodeURIComponent(parts[i])+'&client=tw-ob';
+    premiumAudio=new Audio(url);
+    premiumAudio.onended=()=>{i++;playNext();};
+    premiumAudio.onerror=()=>speakNative(text);
+    premiumAudio.play().catch(()=>speakNative(text));
+  };
+  playNext();
+}
+function speakNative(text){
+  stopAllAudio();
+  try{
+    const fasih=vocalize(text);
+    const u=new SpeechSynthesisUtterance(fasih);
+    u.lang='ar-SA';
+    const slow=document.getElementById('teachSlow')&&document.getElementById('teachSlow').checked;
+    const base=parseFloat((document.getElementById('rateSelect')||{}).value)||0.9;
+    u.rate=slow?0.55:Math.min(base,0.92);
+    u.pitch=1.0; u.volume=1.0;
+    const v=AR_VOICES.find(x=>x.voiceURI===chosenVoiceURI)||AR_VOICES[0];
+    if(v){u.voice=v;u.lang=v.lang;}
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+/* الدالة الرئيسية: تنطق دائماً الصيغة الفصيحة */
+function speak(text){const prem=document.getElementById('premiumChk').checked; if(prem){speakPremium(text);}else{speakNative(text);}}
+/* نطق الحرف بطريقة تعليمية سليمة: اسم الحرف + مثال مشكول */
+function speakLetter(ch,name,ex){
+  const sayName=LETTER_SAY[ch]||vocalize(name);
+  speak('حَرفُ '+sayName+'، ، '+sayName+' .. '+vocalize(ex));
+}
+/* نطق الكلمة: بطيء ثم طبيعي + تقطيع */
+function speakWord(ar){
+  const slow=document.getElementById('teachSlow')&&document.getElementById('teachSlow').checked;
+  if(slow){speak(vocalize(ar)+' ، ، '+vocalize(ar));}
+  else speak(ar);
+}
+function testVoice(){speak('مَرحَبًا بِكَ! أَنَا صَوتُكَ العَرَبِيُّ الفَصِيح. سَنَتَعَلَّمُ العَرَبِيَّةَ، حَرفًا حَرفًا، وَكَلِمَةً كَلِمَة. هَيَّا نَبدَأ!');}
+/* شاشة الافتتاح */
+function enterSite(withVoice){
+  document.getElementById('splash').classList.add('hide');
+  try{localStorage.setItem('visited','1');}catch(e){}
+  if(withVoice)setTimeout(testVoice,500);
+}
+setTimeout(()=>{if(localStorage.getItem('visited'))document.getElementById('splash').classList.add('hide');},8000);
+
+/* ============ 2) MULTILINGUAL UI ============ */
+const I18N={
+ar:{dir:'rtl',nav_letters:'الحروف',nav_vocab:'المفردات',nav_quiz:'الاختبار',nav_practice:'النطق والكتابة',nav_game:'لعبة الذاكرة',start_btn:'ابدأ التعلم',voice_title:'الصوت العربي الاحترافي',speed_label:'السرعة:',slow:'🐢 بطيء للتعلم',normal:'▶️ عادي',premium_label:'جودة عالية (إنترنت)',test_voice:'جرّب الصوت',hero_badge:'تفاعلي • صوتي • مجاني — لغير الناطقين بالعربية',hero_title:'تعلّم العربية من الصفر<br>استمع • تكلّم • العب',hero_sub:'دروس قصيرة ممتعة: الحروف الهجائية مع الصوت، مفردات يومية مع بطاقات مقلوبة، اختبار تفاعلي، تدريب على النطق والكتابة. يعمل على الجوال والحاسوب بدون تسجيل.',listen_welcome:'استمع للترحيب',try_quiz:'جرّب الاختبار',stat1:'حرفاً صوتياً',stat2:'كلمة وصورة',stat3:'أسئلة تفاعلية',word_day:'كلمة اليوم',listen:'استمع',full_sentence:'جملة كاملة',letters_title:'🔤 الحروف الهجائية — اضغط على أي حرف لسماعه',letters_sub:'كل حرف مع النطق الصحيح بالتشكيل ومثال.',vocab_title:'📚 مفردات يومية — اقلب البطاقة',vocab_sub:'اضغط على البطاقة لرؤية المعنى بلغتك، واضغط 🔊 لسماع النطق العربي الفصيح.',quiz_title:'🎯 اختبار سريع — هل أنت مستعد؟',quiz_sub:'8 أسئلة متنوعة مع تصحيح فوري ونتيجة نهائية.',points:'النقاط',next:'التالي',restart:'إعادة',practice_title:'✍️🎙️ تدريب النطق والكتابة',practice_sub:'تدرّب على كتابة الحرف بإصبعك، واختبر أذنك بكتابة ما تسمعه.',writing_title:'✍️ لوحة الكتابة — ارسم حرف: ب ، س ، ع',clear:'🧹 مسح',audio_example:'🔊 مثال صوتي',listen_write_title:'🎧 استمع واكتب',listen_write_sub:'اضغط استمع ثم اكتب الكلمة بالعربية',new_word_btn:'استمع لكلمة جديدة',replay:'إعادة الصوت',input_ph:'اكتب ما سمعت هنا...',check:'تحقق',game_title:'🃏 لعبة الذاكرة — طابق العربية مع معناها',tries_label:'المحاولات',new_game:'لعبة جديدة',footer_line:'صُنع بحب لتعليم العربية لغير الناطقين بها 🌍',footer_small:'صوت عربي فصيح بجودتين: صوت الجهاز + صوت عالي الجودة عبر الإنترنت. بالتوفيق! مع السلامة 👋',q_label:'السؤال',correct:'✅ أحسنت! Excellent!',wrong:'❌ الإجابة الصحيحة مظللة بالأخضر',flip:'اضغط للقلب ↻',cat_greet:'👋 تحيات',cat_num:'🔢 أرقام',cat_col:'🎨 ألوان',cat_food:'🍎 طعام',cat_fam:'👨‍👩‍👧 عائلة'},
+en:{dir:'ltr',nav_letters:'Alphabet',nav_vocab:'Vocabulary',nav_quiz:'Quiz',nav_practice:'Speak & Write',nav_game:'Memory game',start_btn:'Start learning',voice_title:'Professional Arabic voice',speed_label:'Speed:',slow:'🐢 Slow for learning',normal:'▶️ Normal',premium_label:'High quality (internet)',test_voice:'Test voice',hero_badge:'Interactive • Audio • Free — for non-native speakers',hero_title:'Learn Arabic from zero<br>Listen • Speak • Play',hero_sub:'Short fun lessons: alphabet with audio, daily vocabulary flip-cards, interactive quiz, listening and writing practice. Works on mobile and desktop, no signup.',listen_welcome:'Listen to welcome',try_quiz:'Try the quiz',stat1:'audio letters',stat2:'words & images',stat3:'quiz questions',word_day:'Word of the day',listen:'Listen',full_sentence:'Full sentence',letters_title:'🔤 Arabic alphabet — tap any letter to hear it',letters_sub:'Each letter with correct vocalized pronunciation and an example.',vocab_title:'📚 Daily vocabulary — flip the card',vocab_sub:'Tap a card to see the meaning in your language, tap 🔊 to hear formal Arabic.',quiz_title:'🎯 Quick quiz — are you ready?',quiz_sub:'8 varied questions with instant correction and final score.',points:'Score',next:'Next',restart:'Restart',practice_title:'✍️🎙️ Pronunciation & writing practice',practice_sub:'Draw letters with your finger, and test your ear by writing what you hear.',writing_title:'✍️ Writing pad — draw: ب ، س ، ع',clear:'🧹 Clear',audio_example:'🔊 Audio example',listen_write_title:'🎧 Listen & write',listen_write_sub:'Press listen then type the word in Arabic',new_word_btn:'Listen to a new word',replay:'Replay audio',input_ph:'Type what you heard...',check:'Check',game_title:'🃏 Memory game — match Arabic with meaning',tries_label:'Tries',new_game:'New game',footer_line:'Made with love for non-native Arabic learners 🌍',footer_small:'Classical Arabic voice in 2 qualities: device voice + high-quality online voice. Good luck! Ma‘a as-salama 👋',q_label:'Question',correct:'✅ Excellent!',wrong:'❌ Correct answer highlighted in green',flip:'Tap to flip ↻',cat_greet:'👋 Greetings',cat_num:'🔢 Numbers',cat_col:'🎨 Colors',cat_food:'🍎 Food',cat_fam:'👨‍👩‍👧 Family'},
+fr:{dir:'ltr',nav_letters:'Alphabet',nav_vocab:'Vocabulaire',nav_quiz:'Quiz',nav_practice:'Parler & Écrire',nav_game:'Jeu mémoire',start_btn:'Commencer',voice_title:'Voix arabe professionnelle',speed_label:'Vitesse:',slow:'🐢 Lent pour apprendre',normal:'▶️ Normale',premium_label:'Haute qualité (internet)',test_voice:'Tester la voix',hero_badge:'Interactif • Audio • Gratuit — pour non-arabophones',hero_title:'Apprenez l’arabe depuis zéro<br>Écoutez • Parlez • Jouez',hero_sub:'Leçons courtes et amusantes : alphabet avec audio, vocabulaire quotidien, quiz interactif, pratique orale et écrite. Sur mobile et PC, sans inscription.',listen_welcome:'Écouter l’accueil',try_quiz:'Essayer le quiz',stat1:'lettres audio',stat2:'mots et images',stat3:'questions',word_day:'Mot du jour',listen:'Écouter',full_sentence:'Phrase complète',letters_title:'🔤 Alphabet arabe — touchez une lettre pour l’entendre',letters_sub:'Chaque lettre avec prononciation correcte et exemple.',vocab_title:'📚 Vocabulaire quotidien — retournez la carte',vocab_sub:'Touchez pour voir le sens dans votre langue, 🔊 pour entendre l’arabe.',quiz_title:'🎯 Quiz rapide — prêt ?',quiz_sub:'8 questions variées avec correction instantanée.',points:'Score',next:'Suivant',restart:'Recommencer',practice_title:'✍️🎙️ Pratique orale et écrite',practice_sub:'Dessinez les lettres au doigt, écrivez ce que vous entendez.',writing_title:'✍️ Ardoise — dessinez : ب ، س ، ع',clear:'🧹 Effacer',audio_example:'🔊 Exemple audio',listen_write_title:'🎧 Écoutez & écrivez',listen_write_sub:'Appuyez sur écouter puis écrivez le mot en arabe',new_word_btn:'Écouter un nouveau mot',replay:'Réécouter',input_ph:'Écrivez ce que vous avez entendu...',check:'Vérifier',game_title:'🃏 Jeu mémoire — associez arabe et sens',tries_label:'Essais',new_game:'Nouveau jeu',footer_line:'Fait avec amour pour les apprenants non-arabophones 🌍',footer_small:'Voix arabe classique en 2 qualités : appareil + en ligne haute qualité. Bonne chance ! 👋',q_label:'Question',correct:'✅ Excellent !',wrong:'❌ Bonne réponse en vert',flip:'Touchez pour retourner ↻',cat_greet:'👋 Salutations',cat_num:'🔢 Nombres',cat_col:'🎨 Couleurs',cat_food:'🍎 Nourriture',cat_fam:'👨‍👩‍👧 Famille'},
+es:{dir:'ltr',nav_letters:'Alfabeto',nav_vocab:'Vocabulario',nav_quiz:'Quiz',nav_practice:'Hablar y escribir',nav_game:'Memoria',start_btn:'Empezar',voice_title:'Voz árabe profesional',speed_label:'Velocidad:',slow:'🐢 Lento para aprender',normal:'▶️ Normal',premium_label:'Alta calidad (internet)',test_voice:'Probar voz',hero_badge:'Interactivo • Audio • Gratis — para no arabófonos',hero_title:'Aprende árabe desde cero<br>Escucha • Habla • Juega',hero_sub:'Lecciones cortas y divertidas: alfabeto con audio, vocabulario diario, quiz interactivo y práctica de escritura. En móvil y PC, sin registro.',listen_welcome:'Escuchar bienvenida',try_quiz:'Probar el quiz',stat1:'letras con audio',stat2:'palabras e imágenes',stat3:'preguntas',word_day:'Palabra del día',listen:'Escuchar',full_sentence:'Frase completa',letters_title:'🔤 Alfabeto árabe — toca una letra para oírla',letters_sub:'Cada letra con pronunciación correcta y ejemplo.',vocab_title:'📚 Vocabulario diario — gira la tarjeta',vocab_sub:'Toca para ver el significado en tu idioma, 🔊 para oír el árabe.',quiz_title:'🎯 Quiz rápido — ¿listo?',quiz_sub:'8 preguntas variadas con corrección instantánea.',points:'Puntos',next:'Siguiente',restart:'Reiniciar',practice_title:'✍️🎙️ Práctica oral y escrita',practice_sub:'Dibuja letras con el dedo y escribe lo que escuches.',writing_title:'✍️ Pizarra — dibuja: ب ، س ، ع',clear:'🧹 Borrar',audio_example:'🔊 Ejemplo de audio',listen_write_title:'🎧 Escucha y escribe',listen_write_sub:'Pulsa escuchar y escribe la palabra en árabe',new_word_btn:'Escuchar palabra nueva',replay:'Repetir',input_ph:'Escribe lo que escuchaste...',check:'Comprobar',game_title:'🃏 Memoria — une árabe con significado',tries_label:'Intentos',new_game:'Juego nuevo',footer_line:'Hecho con amor para estudiantes no arabófonos 🌍',footer_small:'Voz árabe clásica en 2 calidades: dispositivo + en línea. ¡Suerte! 👋',q_label:'Pregunta',correct:'✅ ¡Excelente!',wrong:'❌ Respuesta correcta en verde',flip:'Toca para girar ↻',cat_greet:'👋 Saludos',cat_num:'🔢 Números',cat_col:'🎨 Colores',cat_food:'🍎 Comida',cat_fam:'👨‍👩‍👧 Familia'},
+tr:{dir:'ltr',nav_letters:'Alfabe',nav_vocab:'Kelime',nav_quiz:'Test',nav_practice:'Konuş & Yaz',nav_game:'Hafıza oyunu',start_btn:'Başla',voice_title:'Profesyonel Arapça ses',speed_label:'Hız:',slow:'🐢 Öğrenmek için yavaş',normal:'▶️ Normal',premium_label:'Yüksek kalite (internet)',test_voice:'Sesi dene',hero_badge:'Etkileşimli • Sesli • Ücretsiz — ana dili Arapça olmayanlar için',hero_title:'Sıfırdan Arapça öğren<br>Dinle • Konuş • Oyna',hero_sub:'Kısa eğlenceli dersler: sesli alfabe, günlük kelime kartları, interaktif test, dinleme ve yazma pratiği. Mobil ve PC’de, kayıtsız.',listen_welcome:'Karşılamayı dinle',try_quiz:'Testi dene',stat1:'sesli harf',stat2:'kelime ve resim',stat3:'soru',word_day:'Günün kelimesi',listen:'Dinle',full_sentence:'Tam cümle',letters_title:'🔤 Arap alfabesi — duymak için harfe dokun',letters_sub:'Her harf doğru telaffuz ve örnekle.',vocab_title:'📚 Günlük kelimeler — kartı çevir',vocab_sub:'Anlamı kendi dilinde gör, 🔊 ile Arapçasını dinle.',quiz_title:'🎯 Hızlı test — hazır mısın?',quiz_sub:'Anında düzeltmeli 8 soru.',points:'Puan',next:'Sonraki',restart:'Yeniden',practice_title:'✍️🎙️ Telaffuz ve yazma pratiği',practice_sub:'Parmağınla harf çiz, duyduğunu yaz.',writing_title:'✍️ Yazı tahtası — çiz: ب ، س ، ع',clear:'🧹 Temizle',audio_example:'🔊 Sesli örnek',listen_write_title:'🎧 Dinle ve yaz',listen_write_sub:'Dinle’ye bas, kelimeyi Arapça yaz',new_word_btn:'Yeni kelime dinle',replay:'Tekrar dinle',input_ph:'Duyduğunu yaz...',check:'Kontrol et',game_title:'🃏 Hafıza oyunu — Arapçayı anlamla eşleştir',tries_label:'Deneme',new_game:'Yeni oyun',footer_line:'Arapça öğrenenler için sevgiyle yapıldı 🌍',footer_small:'2 kalitede fasih Arapça ses: cihaz + çevrimiçi. İyi şanslar! 👋',q_label:'Soru',correct:'✅ Harikasın!',wrong:'❌ Doğru cevap yeşilde',flip:'Çevirmek için dokun ↻',cat_greet:'👋 Selamlaşma',cat_num:'🔢 Sayılar',cat_col:'🎨 Renkler',cat_food:'🍎 Yiyecek',cat_fam:'👨‍👩‍👧 Aile'},
+ur:{dir:'rtl',nav_letters:'حروف',nav_vocab:'الفاظ',nav_quiz:'کوئز',nav_practice:'بولنا اور لکھنا',nav_game:'یادداشت کا کھیل',start_btn:'سیکھنا شروع کریں',voice_title:'پیشہ ورانہ عربی آواز',speed_label:'رفتار:',slow:'🐢 سیکھنے کے لیے آہستہ',normal:'▶️ معمول',premium_label:'اعلیٰ معیار (انٹرنیٹ)',test_voice:'آواز آزمائیں',hero_badge:'انٹرایکٹو • صوتی • مفت — غیر عربوں کے لیے',hero_title:'صفر سے عربی سیکھیں<br>سنیں • بولیں • کھیلیں',hero_sub:'مختصر دلچسپ اسباق: آواز کے ساتھ حروف، روزانہ الفاظ، انٹرایکٹو کوئز، سننے اور لکھنے کی مشق۔ موبائل اور کمپیوٹر پر، بغیر رجسٹریشن۔',listen_welcome:'خوش آمدید سنیں',try_quiz:'کوئز آزمائیں',stat1:'صوتی حروف',stat2:'الفاظ و تصاویر',stat3:'سوالات',word_day:'آج کا لفظ',listen:'سنیں',full_sentence:'مکمل جملہ',letters_title:'🔤 عربی حروف — سننے کے لیے کسی حرف پر دبائیں',letters_sub:'ہر حرف صحیح تلفظ اور مثال کے ساتھ۔',vocab_title:'📚 روزانہ الفاظ — کارڈ پلٹیں',vocab_sub:'اپنی زبان میں معنی دیکھیں، 🔊 سے عربی تلفظ سنیں۔',quiz_title:'🎯 فوری کوئز — کیا آپ تیار ہیں؟',quiz_sub:'فوری اصلاح کے ساتھ 8 سوالات۔',points:'نمبر',next:'اگلا',restart:'دوبارہ',practice_title:'✍️🎙️ تلفظ اور لکھنے کی مشق',practice_sub:'انگلی سے حرف لکھیں، سن کر لکھنے کی مشق کریں۔',writing_title:'✍️ تختی — لکھیں: ب ، س ، ع',clear:'🧹 صاف کریں',audio_example:'🔊 صوتی مثال',listen_write_title:'🎧 سنیں اور لکھیں',listen_write_sub:'سنیں دبائیں پھر لفظ عربی میں لکھیں',new_word_btn:'نیا لفظ سنیں',replay:'دوبارہ سنیں',input_ph:'جو سنا وہ لکھیں...',check:'جانچیں',game_title:'🃏 یادداشت کا کھیل — عربی کو معنی سے ملائیں',tries_label:'کوششیں',new_game:'نیا کھیل',footer_line:'غیر عرب عربی سیکھنے والوں کے لیے محبت سے بنایا گیا 🌍',footer_small:'دو معیاروں میں فصیح عربی آواز: ڈیوائس + آن لائن۔ کامیابی ہو! 👋',q_label:'سوال',correct:'✅ شاباش!',wrong:'❌ صحیح جواب سبز میں',flip:'پلٹنے کے لیے دبائیں ↻',cat_greet:'👋 سلام',cat_num:'🔢 اعداد',cat_col:'🎨 رنگ',cat_food:'🍎 کھانا',cat_fam:'👨‍👩‍👧 خاندان'},
+id:{dir:'ltr',nav_letters:'Huruf',nav_vocab:'Kosakata',nav_quiz:'Kuis',nav_practice:'Bicara & Tulis',nav_game:'Game memori',start_btn:'Mulai belajar',voice_title:'Suara Arab profesional',speed_label:'Kecepatan:',slow:'🐢 Lambat untuk belajar',normal:'▶️ Normal',premium_label:'Kualitas tinggi (internet)',test_voice:'Coba suara',hero_badge:'Interaktif • Audio • Gratis — untuk non-penutur Arab',hero_title:'Belajar Arab dari nol<br>Dengar • Bicara • Bermain',hero_sub:'Pelajaran singkat yang seru: alfabet dengan audio, kartu kosakata harian, kuis interaktif, latihan mendengar dan menulis. Di HP dan PC, tanpa daftar.',listen_welcome:'Dengar sambutan',try_quiz:'Coba kuis',stat1:'huruf audio',stat2:'kata & gambar',stat3:'soal',word_day:'Kata hari ini',listen:'Dengar',full_sentence:'Kalimat penuh',letters_title:'🔤 Alfabet Arab — ketuk huruf untuk mendengar',letters_sub:'Setiap huruf dengan pengucapan bertasykil yang benar dan contoh.',vocab_title:'📚 Kosakata harian — balik kartu',vocab_sub:'Ketuk kartu untuk arti dalam bahasamu, 🔊 untuk dengar bahasa Arab fasih.',quiz_title:'🎯 Kuis cepat — siap?',quiz_sub:'8 soal dengan koreksi instan dan nilai akhir.',points:'Skor',next:'Lanjut',restart:'Ulangi',practice_title:'✍️🎙️ Latihan pengucapan & menulis',practice_sub:'Gambar huruf dengan jari, tulis apa yang kamu dengar.',writing_title:'✍️ Papan tulis — gambar: ب ، س ، ع',clear:'🧹 Hapus',audio_example:'🔊 Contoh audio',listen_write_title:'🎧 Dengar & tulis',listen_write_sub:'Tekan dengar lalu tulis kata dalam Arab',new_word_btn:'Dengar kata baru',replay:'Ulangi audio',input_ph:'Ketik yang kamu dengar...',check:'Cek',game_title:'🃏 Game memori — cocokkan Arab dengan arti',tries_label:'Percobaan',new_game:'Game baru',footer_line:'Dibuat dengan cinta untuk pembelajar non-Arab 🌍',footer_small:'Suara Arab fasih 2 kualitas: perangkat + online. Semoga sukses! 👋',q_label:'Soal',correct:'✅ Hebat!',wrong:'❌ Jawaban benar berwarna hijau',flip:'Ketuk untuk membalik ↻',cat_greet:'👋 Sapaan',cat_num:'🔢 Angka',cat_col:'🎨 Warna',cat_food:'🍎 Makanan',cat_fam:'👨‍👩‍👧 Keluarga'}
+};
+/* هوية ونصوص الشاشة الافتتاحية بكل اللغات */
+const SPLASH_TXT={ar:['العربية للجميع — من أول حرف إلى أول حوار، بصوتٍ فصيح ونطقٍ سليم 100%','ادخل وابدأ التعلم 🚀'],en:['Arabic for everyone — from first letter to first conversation, with clear fus-ha voice','Enter & start learning 🚀'],fr:['L’arabe pour tous — de la première lettre au premier dialogue, avec une voix claire','Entrer et apprendre 🚀'],es:['Árabe para todos — de la primera letra al primer diálogo, con voz clara','Entrar y aprender 🚀'],tr:['Herkes için Arapça — ilk harften ilk sohbete, net sesle','Gir ve öğrenmeye başla 🚀'],ur:['سب کے لیے عربی — پہلے حرف سے پہلی گفتگو تک، صاف آواز کے ساتھ','داخل ہوں اور سیکھیں 🚀'],id:['Arab untuk semua — dari huruf pertama hingga percakapan pertama, dengan suara jelas','Masuk & mulai belajar 🚀']};
+Object.keys(I18N).forEach(l=>{const s=SPLASH_TXT[l]||SPLASH_TXT.en; I18N[l].splash_desc=s[0]; I18N[l].enter_btn=s[1];});
+let UI_LANG=localStorage.getItem('ui_lang')||'ar';
+function t(k){return (I18N[UI_LANG]&&I18N[UI_LANG][k])||I18N.ar[k]||k;}
+function setLang(l){
+  UI_LANG=I18N[l]?l:'ar'; localStorage.setItem('ui_lang',UI_LANG);
+  document.documentElement.lang=UI_LANG; document.documentElement.dir=I18N[UI_LANG].dir;
+  document.getElementById('langSelect').value=UI_LANG;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n'); if(I18N[UI_LANG][k])el.innerHTML=I18N[UI_LANG][k];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{el.placeholder=t(el.getAttribute('data-i18n-ph'));});
+  curCatKey='greet'; renderTabs(); renderVocab(); renderQ(true); showLetter(currentLetter); initGame();
+}
+document.getElementById('langSelect').addEventListener('change',e=>setLang(e.target.value));
+
+/* ============ 3) DATA (vocalized Arabic + multilingual meanings) ============ */
+const letters=[
+['ا','أَلِف','alif','أَسَد'],['ب','باء','baa','باب'],['ت','تاء','taa','تُفّاح'],
+['ث','ثاء','thaa','ثَعلَب'],['ج','جِيم','jeem','جَمَل'],['ح','حاء','haa','حِصان'],
+['خ','خاء','khaa','خُبز'],['د','دال','daal','دار'],['ذ','ذال','thaal','ذُرَة'],
+['ر','راء','raa','رَجُل'],['ز','زاي','zaa','زَهرَة'],['س','سِين','seen','سَمَك'],
+['ش','شِين','sheen','شَمس'],['ص','صاد','saad','صُندُوق'],['ض','ضاد','daad','ضِفدَع'],
+['ط','طاء','taa','طائِر'],['ظ','ظاء','dhaa','ظَرف'],['ع','عَين','ayn','عَسَل'],
+['غ','غَين','ghayn','غَيمَة'],['ف','فاء','faa','فِيل'],['ق','قاف','qaaf','قَمَر'],
+['ك','كاف','kaaf','كِتاب'],['ل','لام','laam','لَيمُون'],['م','مِيم','meem','ماء'],
+['ن','نُون','noon','نَجمَة'],['ه','هاء','haa','هِلال'],['و','واو','waw','وَردَة'],
+['ي','ياء','yaa','يَد']];
+const WORDS={
+'مرحباً':{en:'Hello',fr:'Bonjour',es:'Hola',tr:'Merhaba',ur:'ہیلو',id:'Halo'},
+'صباح الخير':{en:'Good morning',fr:'Bonjour (matin)',es:'Buenos días',tr:'Günaydın',ur:'صبح بخیر',id:'Selamat pagi'},
+'مساء الخير':{en:'Good evening',fr:'Bonsoir',es:'Buenas tardes',tr:'İyi akşamlar',ur:'شام بخیر',id:'Selamat malam'},
+'مع السلامة':{en:'Goodbye',fr:'Au revoir',es:'Adiós',tr:'Hoşça kal',ur:'اللہ حافظ',id:'Sampai jumpa'},
+'شكراً':{en:'Thank you',fr:'Merci',es:'Gracias',tr:'Teşekkürler',ur:'شکریہ',id:'Terima kasih'},
+'عفواً':{en:'You’re welcome / Sorry',fr:'De rien / Pardon',es:'De nada / Perdón',tr:'Rica ederim / Pardon',ur:'معاف کیجیے',id:'Sama-sama / Maaf'},
+'كيف حالك؟':{en:'How are you?',fr:'Comment vas-tu ?',es:'¿Cómo estás?',tr:'Nasılsın?',ur:'آپ کیسے ہیں؟',id:'Apa kabar?'},
+'بخير':{en:'Fine',fr:'Bien',es:'Bien',tr:'İyiyim',ur:'خیریت سے',id:'Baik'},
+'واحد':{en:'One',fr:'Un',es:'Uno',tr:'Bir',ur:'ایک',id:'Satu'},
+'اثنان':{en:'Two',fr:'Deux',es:'Dos',tr:'İki',ur:'دو',id:'Dua'},
+'ثلاثة':{en:'Three',fr:'Trois',es:'Tres',tr:'Üç',ur:'تین',id:'Tiga'},
+'أربعة':{en:'Four',fr:'Quatre',es:'Cuatro',tr:'Dört',ur:'چار',id:'Empat'},
+'خمسة':{en:'Five',fr:'Cinq',es:'Cinco',tr:'Beş',ur:'پانچ',id:'Lima'},
+'عشرة':{en:'Ten',fr:'Dix',es:'Diez',tr:'On',ur:'دس',id:'Sepuluh'},
+'أحمر':{en:'Red',fr:'Rouge',es:'Rojo',tr:'Kırmızı',ur:'سرخ',id:'Merah'},
+'أزرق':{en:'Blue',fr:'Bleu',es:'Azul',tr:'Mavi',ur:'نیلا',id:'Biru'},
+'أخضر':{en:'Green',fr:'Vert',es:'Verde',tr:'Yeşil',ur:'سبز',id:'Hijau'},
+'أصفر':{en:'Yellow',fr:'Jaune',es:'Amarillo',tr:'Sarı',ur:'پیلا',id:'Kuning'},
+'أسود':{en:'Black',fr:'Noir',es:'Negro',tr:'Siyah',ur:'کالا',id:'Hitam'},
+'أبيض':{en:'White',fr:'Blanc',es:'Blanco',tr:'Beyaz',ur:'سفید',id:'Putih'},
+'تفاح':{en:'Apple',fr:'Pomme',es:'Manzana',tr:'Elma',ur:'سیب',id:'Apel'},
+'خبز':{en:'Bread',fr:'Pain',es:'Pan',tr:'Ekmek',ur:'روٹی',id:'Roti'},
+'ماء':{en:'Water',fr:'Eau',es:'Agua',tr:'Su',ur:'پانی',id:'Air'},
+'حليب':{en:'Milk',fr:'Lait',es:'Leche',tr:'Süt',ur:'دودھ',id:'Susu'},
+'أرز':{en:'Rice',fr:'Riz',es:'Arroz',tr:'Pirinç',ur:'چاول',id:'Nasi'},
+'شاي':{en:'Tea',fr:'Thé',es:'Té',tr:'Çay',ur:'چائے',id:'Teh'},
+'أب':{en:'Father',fr:'Père',es:'Padre',tr:'Baba',ur:'والد',id:'Ayah'},
+'أم':{en:'Mother',fr:'Mère',es:'Madre',tr:'Anne',ur:'والدہ',id:'Ibu'},
+'أخ':{en:'Brother',fr:'Frère',es:'Hermano',tr:'Erkek kardeş',ur:'بھائی',id:'Saudara laki-laki'},
+'أخت':{en:'Sister',fr:'Sœur',es:'Hermana',tr:'Kız kardeş',ur:'بہن',id:'Saudara perempuan'},
+'طفل':{en:'Child',fr:'Enfant',es:'Niño',tr:'Çocuk',ur:'بچہ',id:'Anak'},
+'عائلة':{en:'Family',fr:'Famille',es:'Familia',tr:'Aile',ur:'خاندان',id:'Keluarga'}
+};
+function mean(ar){return (WORDS[ar]&&WORDS[ar][UI_LANG])||(WORDS[ar]&&WORDS[ar].en)||'';}
+const vocabCats={
+ greet:{icon:'👋',words:['مرحباً','صباح الخير','مساء الخير','مع السلامة','شكراً','عفواً','كيف حالك؟','بخير'],emoji:['👋','🌅','🌙','👋','🙏','😊','🤔','👍']},
+ num:{icon:'🔢',words:['واحد','اثنان','ثلاثة','أربعة','خمسة','عشرة'],emoji:['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','🔟']},
+ col:{icon:'🎨',words:['أحمر','أزرق','أخضر','أصفر','أسود','أبيض'],emoji:['🔴','🔵','🟢','🟡','⚫','⚪']},
+ food:{icon:'🍎',words:['تفاح','خبز','ماء','حليب','أرز','شاي'],emoji:['🍎','🍞','💧','🥛','🍚','☕']},
+ fam:{icon:'👨‍👩‍👧',words:['أب','أم','أخ','أخت','طفل','عائلة'],emoji:['👨','👩','👦','👧','👶','👨‍👩‍👧']}
+};
+function catName(k){return t(k==='greet'?'cat_greet':k==='num'?'cat_num':k==='col'?'cat_col':k==='food'?'cat_food':'cat_fam');}
+
+/* letters render */
+let currentLetter=0;
+const grid=document.getElementById('lettersGrid'), detail=document.getElementById('letterDetail');
+function showLetter(i,silent){
+  currentLetter=i;
+  const [ch,name,tr,ex]=letters[i];
+  document.querySelectorAll('.letter-card').forEach((c,j)=>c.classList.toggle('active',j===i));
+  detail.innerHTML='<div class="big">'+ch+'</div><div style="flex:1;min-width:220px"><h3 style="margin:0">'+ch+' — '+name+' <small style="color:var(--muted)">('+tr+')</small></h3><p>مثال: <b>'+vocalize(ex)+'</b> <span style="color:var(--muted)">('+mean(ex)+')</span> <button class="audio-btn" onclick="speakWord(\''+ex+'\')">🔊</button></p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" onclick="speakLetter(\''+ch+'\',\''+name+'\',\''+ex+'\')">🔊 '+name+' + مثال</button><button class="btn btn-ghost" onclick="speak(\''+vocalize(ex)+' في جملة: هذا '+vocalize(ex)+'\')">🔊 جملة</button></div></div>';
+  if(!silent)speakLetter(ch,name,ex);
+}
+letters.forEach((L,i)=>{const d=document.createElement('div');d.className='card letter-card';d.innerHTML='<div class="letter-char">'+L[0]+'</div><div class="letter-name">'+L[1]+'</div><div class="letter-trans">'+L[2]+'</div><div class="letter-ex">'+L[3]+'</div>';d.onclick=()=>showLetter(i);grid.appendChild(d);});
+
+/* vocab render */
+const tabsEl=document.getElementById('tabs'), vg=document.getElementById('vocabGrid');
+let curCatKey='greet';
+function renderTabs(){
+  tabsEl.innerHTML='';
+  Object.keys(vocabCats).forEach(k=>{
+    const b=document.createElement('button');b.className='tab'+(k===curCatKey?' active':'');b.textContent=catName(k);
+    b.onclick=()=>{curCatKey=k;renderTabs();renderVocab();};tabsEl.appendChild(b);
+  });
+}
+function renderVocab(){
+  vg.innerHTML='';
+  const c=vocabCats[curCatKey];
+  c.words.forEach((ar,idx)=>{
+    const e=c.emoji[idx], m=mean(ar);
+    const d=document.createElement('div');d.className='vocab';
+    d.innerHTML='<div class="vocab-inner"><div class="vocab-face"><div class="vocab-emoji">'+e+'</div><div class="vocab-ar">'+vocalize(ar)+'</div><div class="vocab-en">'+m+'</div><small style="color:var(--muted)">'+t('flip')+'</small></div><div class="vocab-face vocab-back"><div class="vocab-ar">'+m+'</div><div style="font-size:.85rem;opacity:.8">'+ar+'</div><button class="audio-btn" onclick="event.stopPropagation();speakWord(\''+ar+'\')">🔊</button></div></div>';
+    d.onclick=()=>d.classList.toggle('flipped');vg.appendChild(d);
+  });
+}
+
+/* quiz multilingual questions */
+const quiz=[
+ {q:{ar:'ما معنى "شكراً"؟',en:'What does "شكراً" mean?',fr:'Que signifie « شكراً » ?',es:'¿Qué significa "شكراً"?',tr:'"شكراً" ne demek?',ur:'"شكراً" کا مطلب کیا ہے؟',id:'Apa arti "شكراً"?'},o:['Thank you','Hello','Goodbye','Water'],a:0},
+ {q:{ar:'كيف تقول "Good morning" بالعربية؟',en:'How do you say "Good morning" in Arabic?',fr:'Comment dit-on « Good morning » en arabe ?',es:'¿Cómo se dice "Good morning" en árabe?',tr:'"Good morning" Arapça nasıl denir?',ur:'"Good morning" عربی میں کیسے کہتے ہیں؟',id:'Bagaimana "Good morning" dalam bahasa Arab?'},o:['مساء الخير','صباح الخير','مع السلامة','عفواً'],a:1},
+ {q:{ar:'ما هو الرقم "خمسة"؟',en:'Which number is "خمسة"?',fr:'Quel nombre est « خمسة » ?',es:'¿Qué número es "خمسة"?',tr:'"خمسة" hangi sayı?',ur:'"خمسة" کون سا عدد ہے؟',id:'Angka berapakah "خمسة"?'},o:['3','4','5','10'],a:2},
+ {q:{ar:'ما معنى "أحمر"؟',en:'What does "أحمر" mean?',fr:'Que signifie « أحمر » ?',es:'¿Qué significa "أحمر"?',tr:'"أحمر" ne demek?',ur:'"أحمر" کا مطلب؟',id:'Apa arti "أحمر"?'},o:['Blue','Green','Red','White'],a:2},
+ {q:{ar:'"ماء" تعني...؟',en:'"ماء" means...?',fr:'« ماء » signifie... ?',es:'"ماء" significa...?',tr:'"ماء" demek...?',ur:'"ماء" یعنی...؟',id:'"ماء" artinya...?'},o:['Bread','Water','Milk','Apple'],a:1},
+ {q:{ar:'ما أول حروف الهجاء العربية؟',en:'What is the first Arabic letter?',fr:'Quelle est la première lettre arabe ?',es:'¿Cuál es la primera letra árabe?',tr:'İlk Arap harfi hangisi?',ur:'پہلا عربی حرف کون سا ہے؟',id:'Apa huruf Arab pertama?'},o:['ب','ا','ي','م'],a:1},
+ {q:{ar:'"مع السلامة" نستخدمها عندما...؟',en:'When do we use "مع السلامة"?',fr:'Quand utilise-t-on « مع السلامة » ?',es:'¿Cuándo usamos "مع السلامة"?',tr:'"مع السلامة" ne zaman kullanılır?',ur:'"مع السلامة" کب کہتے ہیں؟',id:'Kapan memakai "مع السلامة"?'},o:['Greet','Thank','Say goodbye','Eat'],a:2},
+ {q:{ar:'"كيف حالك؟" تعني...؟',en:'"كيف حالك؟" means...?',fr:'« كيف حالك؟ » signifie... ?',es:'"كيف حالك؟" significa...?',tr:'"كيف حالك؟" demek...?',ur:'"كيف حالك؟" یعنی...؟',id:'"كيف حالك؟" artinya...?'},o:['What is your name?','How are you?','Where are you?','Good night'],a:1}
+];
+let qi=0,score=0,locked=false;
+function qText(q){return q[UI_LANG]||q.en||q.ar;}
+function renderQ(keep){
+  if(keep!==true){/* keep qi/score on lang change */}
+  locked=false;
+  document.getElementById('qCount').textContent=t('q_label')+' '+(qi+1)+' / '+quiz.length;
+  document.getElementById('bar').style.width=(qi/quiz.length*100)+'%';
+  document.getElementById('qText').textContent=qText(quiz[qi].q);
+  document.getElementById('feedback').textContent='';
+  const box=document.getElementById('opts');box.innerHTML='';
+  quiz[qi].o.forEach((txt,i)=>{
+    const b=document.createElement('button');b.className='opt';b.textContent=txt;
+    b.onclick=()=>{
+      if(locked)return;locked=true;
+      if(i===quiz[qi].a){b.classList.add('correct');score++;document.getElementById('feedback').textContent=t('correct');speak('أَحسَنت');}
+      else{b.classList.add('wrong');box.children[quiz[qi].a].classList.add('correct');document.getElementById('feedback').textContent=t('wrong');}
+      document.getElementById('score').textContent=score;
+      document.getElementById('bar').style.width=((qi+1)/quiz.length*100)+'%';
+    };
+    box.appendChild(b);
+  });
+}
+function nextQ(){
+  if(qi<quiz.length-1){qi++;renderQ();}
+  else{
+    document.getElementById('qText').textContent='🏆 '+score+' / '+quiz.length;
+    document.getElementById('opts').innerHTML='<p style="text-align:center;font-weight:800;font-size:1.2rem">'+(score>=6?'🎉':score>=4?'🌟':'📖')+'</p>';
+    speak('نَتيجَتُكَ '+score+' مِن '+quiz.length);
+  }
+}
+function restartQuiz(){qi=0;score=0;document.getElementById('score').textContent='0';renderQ();}
+
+/* pad */
+const cv=document.getElementById('pad'),ctx=cv.getContext('2d');
+function sizePad(){try{cv.width=cv.offsetWidth*2;cv.height=440;ctx.lineWidth=8;ctx.lineCap='round';ctx.strokeStyle='#0e9f6e';}catch(e){}}
+setTimeout(sizePad,300);window.addEventListener('resize',sizePad);
+let drawing=false;
+function pos(e){const r=cv.getBoundingClientRect();const tt=e.touches?e.touches[0]:e;return [tt.clientX-r.left,tt.clientY-r.top];}
+cv.addEventListener('mousedown',e=>{drawing=true;const [x,y]=pos(e);ctx.beginPath();ctx.moveTo(x*2,y*2);});
+cv.addEventListener('mousemove',e=>{if(!drawing)return;const [x,y]=pos(e);ctx.lineTo(x*2,y*2);ctx.stroke();});
+window.addEventListener('mouseup',()=>drawing=false);
+cv.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;const [x,y]=pos(e);ctx.beginPath();ctx.moveTo(x*2,y*2);},{passive:false});
+cv.addEventListener('touchmove',e=>{e.preventDefault();if(!drawing)return;const [x,y]=pos(e);ctx.lineTo(x*2,y*2);ctx.stroke();},{passive:false});
+cv.addEventListener('touchend',()=>drawing=false);
+function clearPad(){ctx.clearRect(0,0,cv.width,cv.height);}
+
+/* listen & write */
+const listenList=['مرحبا','شكرا','ماء','كتاب','شمس','قمر','سلام','عسل'];
+let curListen='';
+function newListen(){curListen=listenList[Math.floor(Math.random()*listenList.length)];document.getElementById('listenWord').textContent='🔊';document.getElementById('listenFb').textContent='';document.getElementById('listenInput').value='';speak(curListen);}
+function replayListen(){if(curListen)speak(curListen);else newListen();}
+function checkListen(){
+  const v=document.getElementById('listenInput').value.trim();
+  const fb=document.getElementById('listenFb');
+  if(!curListen){fb.textContent='👆';return;}
+  if(v.replace(/[ً-ٰٟ]/g,'')===curListen.replace(/[ً-ٰٟ]/g,'')){fb.textContent='✅ 🎉';document.getElementById('listenWord').textContent=curListen;speak('صَحيح، أَحسَنت');}
+  else{fb.textContent='❌ : '+curListen;document.getElementById('listenWord').textContent=curListen;}
+}
+
+/* memory game uses current UI language meanings */
+let first=null,lockG=false,triesN=0;
+function initGame(){
+  triesN=0;document.getElementById('tries').textContent='0';first=null;lockG=false;
+  const pairKeys=['مرحباً','شكراً','ماء','كتاب','شمس','قمر'];
+  const nameMap={'مرحباً':mean('مرحباً'),'شكراً':mean('شكراً'),'ماء':mean('ماء'),'كتاب':'Book','شمس':'Sun','قمر':'Moon'};
+  // localized where possible
+  let cards=[];pairKeys.forEach(ar=>{const m=mean(ar)||nameMap[ar];cards.push({tt:ar,ar});cards.push({tt:m,ar});});
+  cards=cards.sort(()=>Math.random()-.5);
+  const g=document.getElementById('gameGrid');g.innerHTML='';
+  cards.forEach(c=>{
+    const d=document.createElement('div');d.className='mcard';d.textContent='؟';d.dataset.ar=c.ar;d.dataset.tt=c.tt;
+    d.onclick=()=>{
+      if(lockG||d.classList.contains('done')||d.classList.contains('open'))return;
+      d.classList.add('open');d.textContent=d.dataset.tt;
+      if(/[\u0600-\u06FF]/.test(d.dataset.tt))speak(d.dataset.tt);
+      if(!first){first=d;return;}
+      triesN++;document.getElementById('tries').textContent=triesN;
+      if(first.dataset.ar===d.dataset.ar&&first!==d){first.classList.add('done');d.classList.add('done');first=null;
+        if(document.querySelectorAll('.mcard.done').length===cards.length)setTimeout(()=>speak('مَبرُوك، فُزت'),400);
+      }else{lockG=true;const a=first,b=d;first=null;setTimeout(()=>{a.classList.remove('open');b.classList.remove('open');a.textContent='؟';b.textContent='؟';lockG=false;},800);}
+    };
+    g.appendChild(d);
+  });
+}
+
+/* init language */
+setLang(UI_LANG);
+showLetter(0,true);
+</script>
+</body>
+</html>
