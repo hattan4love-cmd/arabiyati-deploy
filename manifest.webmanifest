@@ -1,0 +1,29 @@
+{
+  "name": "عربيتي • Arabiyati — تعلّم العربية بمتعة",
+  "short_name": "عربيتي",
+  "description": "موقع تفاعلي مجاني لتعليم العربية لغير الناطقين بها — الحروف بالنطق الفصيح، مفردات يومية، اختبار، وتدريب على النطق والكتابة.",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FFFBF2",
+  "theme_color": "#0e9f6e",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
