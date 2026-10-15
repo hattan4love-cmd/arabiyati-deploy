@@ -6,6 +6,13 @@
 <title>عربيتي | تعلّم العربية بمتعة</title>
 <meta name="description" content="عربيتي: موقع تفاعلي مجاني لتعليم العربية لغير الناطقين بها — الحروف بالنطق الفصيح، مفردات يومية، اختبار، وتدريب على النطق والكتابة.">
 <link rel="canonical" href="https://hattan4love-cmd.github.io/arabiyati-deploy/">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0e9f6e">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="عربيتي">
 <meta property="og:title" content="عربيتي | تعلّم العربية بمتعة">
 <meta property="og:description" content="عربيتي: موقع تفاعلي مجاني لتعليم العربية لغير الناطقين بها — الحروف بالنطق الفصيح، مفردات يومية، اختبار، وتدريب على النطق والكتابة.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -295,7 +302,7 @@ const FASIH={
 'شمس':'شَمس','صندوق':'صُندُوق','ضفدع':'ضِفدَع','طائر':'طَائِر','ظرف':'ظَرف','عسل':'عَسَل',
 'غيمة':'غَيمَة','فيل':'فِيل','قمر':'قَمَر','كتاب':'كِتَاب','ليمون':'لَيمُون','نجمة':'نَجمَة',
 'هلال':'هِلَال','وردة':'وَردَة','يد':'يَد','سلام':'سَلَام','أحسنت':'أَحسَنت','صحيح':'صَحِيح',
-'مبروك':'مَبرُوك، فُزت','فزت':'فُزت'
+'مبروك':'مَبرُوك، فُزت','فزت':'فُزت','هذا':'هَذَا','هذه':'هَذِهِ','جملة':'جُملَة','كلمة':'كَلِمَة','مثال':'مِثَال','جديد':'جَدِيد'
 };
 const LETTER_SAY={'ا':'أَلِف','ب':'بَاء','ت':'تَاء','ث':'ثَاء','ج':'جِيم','ح':'حَاء','خ':'خَاء','د':'دَال','ذ':'ذَال','ر':'رَاء','ز':'زَاي','س':'سِين','ش':'شِين','ص':'صَاد','ض':'ضَاد','ط':'طَاء','ظ':'ظَاء','ع':'عَين','غ':'غَين','ف':'فَاء','ق':'قَاف','ك':'كَاف','ل':'لَام','م':'مِيم','ن':'نُون','ه':'هَاء','و':'وَاو','ي':'يَاء'};
 function vocalize(text){
@@ -350,33 +357,57 @@ function speakPremium(text){
   };
   playNext();
 }
+function nativeUtter(text,rate){
+  const u=new SpeechSynthesisUtterance(vocalize(text));
+  u.lang='ar-SA'; u.rate=rate; u.pitch=1.0; u.volume=1.0;
+  const v=AR_VOICES.find(x=>x.voiceURI===chosenVoiceURI)||AR_VOICES[0];
+  if(v){u.voice=v;u.lang=v.lang;}
+  return u;
+}
 function speakNative(text){
   stopAllAudio();
   try{
-    const fasih=vocalize(text);
-    const u=new SpeechSynthesisUtterance(fasih);
-    u.lang='ar-SA';
     const slow=document.getElementById('teachSlow')&&document.getElementById('teachSlow').checked;
     const base=parseFloat((document.getElementById('rateSelect')||{}).value)||0.9;
-    u.rate=slow?0.55:Math.min(base,0.92);
-    u.pitch=1.0; u.volume=1.0;
-    const v=AR_VOICES.find(x=>x.voiceURI===chosenVoiceURI)||AR_VOICES[0];
-    if(v){u.voice=v;u.lang=v.lang;}
-    speechSynthesis.speak(u);
+    speechSynthesis.speak(nativeUtter(text,slow?0.55:Math.min(base,0.92)));
   }catch(e){}
+}
+/* نطق صَدَوي تعليمي: مرة بطيئة ثم مرة طبيعية — يُرسّخ النطق السليم */
+function speakEcho(text){
+  const prem=document.getElementById('premiumChk').checked;
+  const fasih=vocalize(text);
+  if(prem){
+    stopAllAudio();
+    const mk=(t,rate,next)=>{
+      const a=new Audio('https://translate.google.com/translate_tts?ie=UTF-8&tl=ar&q='+encodeURIComponent(t)+'&client=tw-ob');
+      a.playbackRate=rate; a.onended=next; a.onerror=()=>speakNative(text);
+      a.play().catch(()=>speakNative(text)); return a;
+    };
+    premiumAudio=mk(fasih,0.8,()=>{premiumAudio=mk(fasih,1,null);});
+  }else{
+    stopAllAudio();
+    try{ speechSynthesis.speak(nativeUtter(fasih+' ،',0.55)); speechSynthesis.speak(nativeUtter(fasih,0.9)); }catch(e){}
+  }
 }
 /* الدالة الرئيسية: تنطق دائماً الصيغة الفصيحة */
 function speak(text){const prem=document.getElementById('premiumChk').checked; if(prem){speakPremium(text);}else{speakNative(text);}}
-/* نطق الحرف بطريقة تعليمية سليمة: اسم الحرف + مثال مشكول */
+/* نطق الحرف بطريقة تعليمية سليمة: اسم الحرف مرتين ثم مثال مشكول */
 function speakLetter(ch,name,ex){
   const sayName=LETTER_SAY[ch]||vocalize(name);
-  speak('حَرفُ '+sayName+'، ، '+sayName+' .. '+vocalize(ex));
+  speakEcho('حَرفُ '+sayName+' .. '+sayName+' .. '+vocalize(ex));
 }
-/* نطق الكلمة: بطيء ثم طبيعي + تقطيع */
+/* نطق الكلمة: صَدَى بطيء+طبيعي في الوضع التعليمي */
 function speakWord(ar){
   const slow=document.getElementById('teachSlow')&&document.getElementById('teachSlow').checked;
-  if(slow){speak(vocalize(ar)+' ، ، '+vocalize(ar));}
+  if(slow){speakEcho(ar);}
   else speak(ar);
+}
+/* تهجئة الكلمة حرفاً حرفاً ثم نطقها كاملة — بأسماء الحروف الصحيحة */
+const SPELL_EXTRA={'ة':'تَاء مَربُوطَة','أ':'هَمزَة على أَلِف','إ':'هَمزَة مَكسُورَة على أَلِف','آ':'أَلِف مَمدُودَة','ء':'هَمزَة','ئ':'هَمزَة على يَاء','ؤ':'هَمزَة على وَاو','ى':'أَلِف لَيِّنَة'};
+function spellWord(ar){
+  const names=[...ar].map(c=>SPELL_EXTRA[c]||LETTER_SAY[c]).filter(Boolean);
+  if(!names.length)return;
+  speakEcho(names.join(' ، ')+' ، ، '+vocalize(ar));
 }
 function testVoice(){speak('مَرحَبًا بِكَ! أَنَا صَوتُكَ العَرَبِيُّ الفَصِيح. سَنَتَعَلَّمُ العَرَبِيَّةَ، حَرفًا حَرفًا، وَكَلِمَةً كَلِمَة. هَيَّا نَبدَأ!');}
 /* شاشة الافتتاح */
@@ -478,7 +509,7 @@ function showLetter(i,silent){
   currentLetter=i;
   const [ch,name,tr,ex]=letters[i];
   document.querySelectorAll('.letter-card').forEach((c,j)=>c.classList.toggle('active',j===i));
-  detail.innerHTML='<div class="big">'+ch+'</div><div style="flex:1;min-width:220px"><h3 style="margin:0">'+ch+' — '+name+' <small style="color:var(--muted)">('+tr+')</small></h3><p>مثال: <b>'+vocalize(ex)+'</b> <span style="color:var(--muted)">('+mean(ex)+')</span> <button class="audio-btn" onclick="speakWord(\''+ex+'\')">🔊</button></p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" onclick="speakLetter(\''+ch+'\',\''+name+'\',\''+ex+'\')">🔊 '+name+' + مثال</button><button class="btn btn-ghost" onclick="speak(\''+vocalize(ex)+' في جملة: هذا '+vocalize(ex)+'\')">🔊 جملة</button></div></div>';
+  detail.innerHTML='<div class="big">'+ch+'</div><div style="flex:1;min-width:220px"><h3 style="margin:0">'+ch+' — '+name+' <small style="color:var(--muted)">('+tr+')</small></h3><p>مثال: <b>'+vocalize(ex)+'</b> <span style="color:var(--muted)">('+mean(ex)+')</span> <button class="audio-btn" onclick="speakWord(\''+ex+'\')">🔊</button></p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" onclick="speakLetter(\''+ch+'\',\''+name+'\',\''+ex+'\')">🔊 استماع</button><button class="btn btn-ghost" onclick="spellWord(\''+ex+'\')">🔤 تهجئة</button><button class="btn btn-ghost" onclick="speak(\''+vocalize(ex)+' فِي جُملَة: هَذَا '+vocalize(ex)+'\')">💬 جملة</button></div></div>';
   if(!silent)speakLetter(ch,name,ex);
  }catch(e){showAppError();sectionFallback('letterDetail');}
 }
@@ -501,7 +532,7 @@ function renderVocab(){
   c.words.forEach((ar,idx)=>{
     const e=c.emoji[idx], m=mean(ar);
     const d=document.createElement('div');d.className='vocab';
-    d.innerHTML='<div class="vocab-inner"><div class="vocab-face"><div class="vocab-emoji">'+e+'</div><div class="vocab-ar">'+vocalize(ar)+'</div><div class="vocab-en">'+m+'</div><small style="color:var(--muted)">'+t('flip')+'</small></div><div class="vocab-face vocab-back"><div class="vocab-ar">'+m+'</div><div style="font-size:.85rem;opacity:.8">'+ar+'</div><button class="audio-btn" onclick="event.stopPropagation();speakWord(\''+ar+'\')">🔊</button></div></div>';
+    d.innerHTML='<div class="vocab-inner"><div class="vocab-face"><div class="vocab-emoji">'+e+'</div><div class="vocab-ar">'+vocalize(ar)+'</div><div class="vocab-en">'+m+'</div><small style="color:var(--muted)">'+t('flip')+'</small></div><div class="vocab-face vocab-back"><div class="vocab-ar">'+m+'</div><div style="font-size:.85rem;opacity:.8">'+ar+'</div><button class="audio-btn" onclick="event.stopPropagation();speakWord(\''+ar+'\')">🔊</button><button class="audio-btn" onclick="event.stopPropagation();spellWord(\''+ar+'\')" title="تهجئة">🔤</button></div></div>';
     d.onclick=()=>d.classList.toggle('flipped');vg.appendChild(d);
   });
  }catch(e){showAppError();sectionFallback('vocabGrid');}
