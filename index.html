@@ -143,6 +143,7 @@ footer b{color:#fff}
     <a href="#practice" data-i18n="nav_practice">النطق والكتابة</a>
     <a href="#game" data-i18n="nav_game">لعبة الذاكرة</a>
     <a href="services.html" data-i18n="nav_services">خدماتنا</a>
+    <a href="about.html" data-i18n="nav_about">من نحن</a>
   </div>
   <div class="nav-tools">
     <select id="langSelect" title="UI Language / لغة الموقع" aria-label="لغة الموقع / UI Language">
@@ -266,7 +267,7 @@ footer b{color:#fff}
 
 <footer>
   <b>عربيتي • Arabiyati</b> — <span data-i18n="footer_line">صُنع بحب لتعليم العربية لغير الناطقين بها 🌍</span><br>
-  <a href="index.html" style="color:#fbbf24;font-weight:800">🏠 الرئيسية</a> • <a href="services.html" style="color:#fbbf24;font-weight:800" data-i18n="nav_services">خدماتنا</a><br>
+  <a href="index.html" style="color:#fbbf24;font-weight:800">🏠 الرئيسية</a> • <a href="services.html" style="color:#fbbf24;font-weight:800" data-i18n="nav_services">خدماتنا</a> • <a href="about.html" style="color:#fbbf24;font-weight:800" data-i18n="nav_about">من نحن</a><br>
   <small data-i18n="footer_small">صوت عربي فصيح بجودتين: صوت الجهاز + صوت عالي الجودة عبر الإنترنت. بالتوفيق! مع السلامة 👋</small>
 </footer>
 
@@ -400,6 +401,7 @@ id:{dir:'ltr',nav_letters:'Huruf',nav_vocab:'Kosakata',nav_quiz:'Kuis',nav_pract
 const SPLASH_TXT={ar:['العربية للجميع — من أول حرف إلى أول حوار، بصوتٍ فصيح ونطقٍ سليم 100%','ادخل وابدأ التعلم 🚀'],en:['Arabic for everyone — from first letter to first conversation, with clear fus-ha voice','Enter & start learning 🚀'],fr:['L’arabe pour tous — de la première lettre au premier dialogue, avec une voix claire','Entrer et apprendre 🚀'],es:['Árabe para todos — de la primera letra al primer diálogo, con voz clara','Entrar y aprender 🚀'],tr:['Herkes için Arapça — ilk harften ilk sohbete, net sesle','Gir ve öğrenmeye başla 🚀'],ur:['سب کے لیے عربی — پہلے حرف سے پہلی گفتگو تک، صاف آواز کے ساتھ','داخل ہوں اور سیکھیں 🚀'],id:['Arab untuk semua — dari huruf pertama hingga percakapan pertama, dengan suara jelas','Masuk & mulai belajar 🚀']};
 Object.keys(I18N).forEach(l=>{const s=SPLASH_TXT[l]||SPLASH_TXT.en; I18N[l].splash_desc=s[0]; I18N[l].enter_btn=s[1];});
 I18N.ar.nav_services='خدماتنا'; I18N.en.nav_services='Our services'; I18N.fr.nav_services='Nos services'; I18N.es.nav_services='Nuestros servicios'; I18N.tr.nav_services='Hizmetlerimiz'; I18N.ur.nav_services='ہماری خدمات'; I18N.id.nav_services='Layanan kami';
+I18N.ar.nav_about='من نحن'; I18N.en.nav_about='About us'; I18N.fr.nav_about='Qui sommes-nous'; I18N.es.nav_about='Quiénes somos'; I18N.tr.nav_about='Hakkımızda'; I18N.ur.nav_about='ہمارے بارے میں'; I18N.id.nav_about='Tentang kami';
 let UI_LANG=localStorage.getItem('ui_lang')||'ar';
 function t(k){return (I18N[UI_LANG]&&I18N[UI_LANG][k])||I18N.ar[k]||k;}
 function setLang(l){
