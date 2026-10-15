@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>عربيتي | تعلّم العربية بمتعة</title>
+<meta name="description" content="عربيتي: موقع تفاعلي مجاني لتعليم العربية لغير الناطقين بها — الحروف بالنطق الفصيح، مفردات يومية، اختبار، وتدريب على النطق والكتابة.">
+<link rel="canonical" href="https://hattan4love-cmd.github.io/arabiyati-deploy/">
+<meta property="og:title" content="عربيتي | تعلّم العربية بمتعة">
+<meta property="og:description" content="عربيتي: موقع تفاعلي مجاني لتعليم العربية لغير الناطقين بها — الحروف بالنطق الفصيح، مفردات يومية، اختبار، وتدريب على النطق والكتابة.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -104,6 +108,8 @@ input[type=text]{width:100%;padding:12px 16px;border-radius:12px;border:2px soli
 .splash-name{font-weight:900;font-size:2.2rem;margin:12px 0 0}
 .splash-tag{display:inline-block;background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid #f59e0b;color:#92400e;font-weight:900;border-radius:100px;padding:8px 20px;margin:12px 0;font-size:1.15rem}
 .splash-desc{color:var(--muted)}
+.errbar{background:#fef2f2;border:2px solid #fecaca;color:#991b1b;font-weight:800;text-align:center;padding:10px 16px;margin:10px auto;max-width:1150px;border-radius:14px}
+.errbar[hidden]{display:none}
 .splash-welcome{font-family:'Amiri';font-size:1.5rem;margin:10px 0;color:#065f46}
 footer{background:#111827;color:#d1d5db;margin-top:40px;padding:34px 18px;text-align:center}
 footer b{color:#fff}
@@ -111,6 +117,7 @@ footer b{color:#fff}
 </style>
 </head>
 <body>
+<div class="errbar" id="errbar" role="alert" hidden>⚠️ تعذّر تحميل جزء من المحتوى — حدّث الصفحة وحاول مجدداً <small>(Something went wrong — please refresh)</small></div>
 <!-- شاشة الافتتاح: الشعار والترحيب والهوية -->
 <div class="splash" id="splash">
   <div class="splash-card">
@@ -135,9 +142,10 @@ footer b{color:#fff}
     <a href="#quiz" data-i18n="nav_quiz">الاختبار</a>
     <a href="#practice" data-i18n="nav_practice">النطق والكتابة</a>
     <a href="#game" data-i18n="nav_game">لعبة الذاكرة</a>
+    <a href="about.html" data-i18n="nav_about">من نحن</a>
   </div>
   <div class="nav-tools">
-    <select id="langSelect" title="UI Language / لغة الموقع">
+    <select id="langSelect" title="UI Language / لغة الموقع" aria-label="لغة الموقع / UI Language">
       <option value="ar">🌍 العربية</option>
       <option value="en">🇬🇧 English</option>
       <option value="fr">🇫🇷 Français</option>
@@ -155,9 +163,9 @@ footer b{color:#fff}
 <div class="voice-bar">
   <div class="voice-card">
     <b>🎙️ <span data-i18n="voice_title">الصوت العربي الاحترافي</span>:</b>
-    <select id="voiceSelect"><option value="">... جارٍ تحميل الأصوات</option></select>
+    <select id="voiceSelect" aria-label="اختيار الصوت العربي"><option value="">... جارٍ تحميل الأصوات</option></select>
     <label data-i18n="speed_label">السرعة:</label>
-    <select id="rateSelect" style="max-width:130px">
+    <select id="rateSelect" style="max-width:130px" aria-label="سرعة النطق">
       <option value="0.65" data-i18n="slow">🐢 بطيء للتعلم</option>
       <option value="0.9" selected data-i18n="normal">▶️ عادي</option>
     </select>
@@ -241,7 +249,7 @@ footer b{color:#fff}
         <button class="btn btn-ghost" onclick="replayListen()">↻ <span data-i18n="replay">إعادة الصوت</span></button>
       </div>
       <div style="margin-top:14px;display:flex;gap:10px">
-        <input type="text" id="listenInput" data-i18n-ph="input_ph" placeholder="اكتب ما سمعت هنا...">
+        <input type="text" id="listenInput" data-i18n-ph="input_ph" placeholder="اكتب ما سمعت هنا..." aria-label="اكتب الكلمة التي سمعتها بالعربية">
         <button class="btn btn-gold" onclick="checkListen()" data-i18n="check">تحقق</button>
       </div>
       <div class="quiz-feedback" id="listenFb"></div>
@@ -258,10 +266,15 @@ footer b{color:#fff}
 
 <footer>
   <b>عربيتي • Arabiyati</b> — <span data-i18n="footer_line">صُنع بحب لتعليم العربية لغير الناطقين بها 🌍</span><br>
+  <a href="index.html" style="color:#fbbf24;font-weight:800">🏠 الرئيسية</a> • <a href="about.html" style="color:#fbbf24;font-weight:800" data-i18n="nav_about">من نحن</a><br>
   <small data-i18n="footer_small">صوت عربي فصيح بجودتين: صوت الجهاز + صوت عالي الجودة عبر الإنترنت. بالتوفيق! مع السلامة 👋</small>
 </footer>
 
 <script>
+/* معالجة أخطاء لطيفة: تنبيه عام بدون أي تفاصيل تقنية */
+function showAppError(){var b=document.getElementById('errbar');if(b)b.hidden=false;}
+window.onerror=function(){showAppError();return false;};
+function sectionFallback(id){var el=document.getElementById(id);if(el&&!el.innerHTML.trim())el.innerHTML='<p style="text-align:center;padding:20px;font-weight:800">⚠️ تعذّر تحميل هذا القسم — حدّث الصفحة وحاول مجدداً<br><small>Section failed to load — please refresh</small></p>';}
 /* ============ 1) صوت عربي فصيح 100% — محرك محسّن ============
    الفكرة: كل كلمة تُنطق من صيغة مشكولة بالكامل + إيقاع بطيء + تقطيع تعليمي.
    Native (أفضل صوت عربي في الجهاز) هو الأساس، و Premium (Google) احتياطي عالي الجودة.
@@ -386,6 +399,7 @@ id:{dir:'ltr',nav_letters:'Huruf',nav_vocab:'Kosakata',nav_quiz:'Kuis',nav_pract
 /* هوية ونصوص الشاشة الافتتاحية بكل اللغات */
 const SPLASH_TXT={ar:['العربية للجميع — من أول حرف إلى أول حوار، بصوتٍ فصيح ونطقٍ سليم 100%','ادخل وابدأ التعلم 🚀'],en:['Arabic for everyone — from first letter to first conversation, with clear fus-ha voice','Enter & start learning 🚀'],fr:['L’arabe pour tous — de la première lettre au premier dialogue, avec une voix claire','Entrer et apprendre 🚀'],es:['Árabe para todos — de la primera letra al primer diálogo, con voz clara','Entrar y aprender 🚀'],tr:['Herkes için Arapça — ilk harften ilk sohbete, net sesle','Gir ve öğrenmeye başla 🚀'],ur:['سب کے لیے عربی — پہلے حرف سے پہلی گفتگو تک، صاف آواز کے ساتھ','داخل ہوں اور سیکھیں 🚀'],id:['Arab untuk semua — dari huruf pertama hingga percakapan pertama, dengan suara jelas','Masuk & mulai belajar 🚀']};
 Object.keys(I18N).forEach(l=>{const s=SPLASH_TXT[l]||SPLASH_TXT.en; I18N[l].splash_desc=s[0]; I18N[l].enter_btn=s[1];});
+I18N.ar.nav_about='من نحن'; I18N.en.nav_about='About us'; I18N.fr.nav_about='Qui sommes-nous'; I18N.es.nav_about='Quiénes somos'; I18N.tr.nav_about='Hakkımızda'; I18N.ur.nav_about='ہمارے بارے میں'; I18N.id.nav_about='Tentang kami';
 let UI_LANG=localStorage.getItem('ui_lang')||'ar';
 function t(k){return (I18N[UI_LANG]&&I18N[UI_LANG][k])||I18N.ar[k]||k;}
 function setLang(l){
@@ -458,11 +472,13 @@ function catName(k){return t(k==='greet'?'cat_greet':k==='num'?'cat_num':k==='co
 let currentLetter=0;
 const grid=document.getElementById('lettersGrid'), detail=document.getElementById('letterDetail');
 function showLetter(i,silent){
+ try{
   currentLetter=i;
   const [ch,name,tr,ex]=letters[i];
   document.querySelectorAll('.letter-card').forEach((c,j)=>c.classList.toggle('active',j===i));
   detail.innerHTML='<div class="big">'+ch+'</div><div style="flex:1;min-width:220px"><h3 style="margin:0">'+ch+' — '+name+' <small style="color:var(--muted)">('+tr+')</small></h3><p>مثال: <b>'+vocalize(ex)+'</b> <span style="color:var(--muted)">('+mean(ex)+')</span> <button class="audio-btn" onclick="speakWord(\''+ex+'\')">🔊</button></p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn btn-primary" onclick="speakLetter(\''+ch+'\',\''+name+'\',\''+ex+'\')">🔊 '+name+' + مثال</button><button class="btn btn-ghost" onclick="speak(\''+vocalize(ex)+' في جملة: هذا '+vocalize(ex)+'\')">🔊 جملة</button></div></div>';
   if(!silent)speakLetter(ch,name,ex);
+ }catch(e){showAppError();sectionFallback('letterDetail');}
 }
 letters.forEach((L,i)=>{const d=document.createElement('div');d.className='card letter-card';d.innerHTML='<div class="letter-char">'+L[0]+'</div><div class="letter-name">'+L[1]+'</div><div class="letter-trans">'+L[2]+'</div><div class="letter-ex">'+L[3]+'</div>';d.onclick=()=>showLetter(i);grid.appendChild(d);});
 
@@ -477,6 +493,7 @@ function renderTabs(){
   });
 }
 function renderVocab(){
+ try{
   vg.innerHTML='';
   const c=vocabCats[curCatKey];
   c.words.forEach((ar,idx)=>{
@@ -485,6 +502,7 @@ function renderVocab(){
     d.innerHTML='<div class="vocab-inner"><div class="vocab-face"><div class="vocab-emoji">'+e+'</div><div class="vocab-ar">'+vocalize(ar)+'</div><div class="vocab-en">'+m+'</div><small style="color:var(--muted)">'+t('flip')+'</small></div><div class="vocab-face vocab-back"><div class="vocab-ar">'+m+'</div><div style="font-size:.85rem;opacity:.8">'+ar+'</div><button class="audio-btn" onclick="event.stopPropagation();speakWord(\''+ar+'\')">🔊</button></div></div>';
     d.onclick=()=>d.classList.toggle('flipped');vg.appendChild(d);
   });
+ }catch(e){showAppError();sectionFallback('vocabGrid');}
 }
 
 /* quiz multilingual questions */
@@ -501,6 +519,7 @@ const quiz=[
 let qi=0,score=0,locked=false;
 function qText(q){return q[UI_LANG]||q.en||q.ar;}
 function renderQ(keep){
+ try{
   if(keep!==true){/* keep qi/score on lang change */}
   locked=false;
   document.getElementById('qCount').textContent=t('q_label')+' '+(qi+1)+' / '+quiz.length;
@@ -519,6 +538,7 @@ function renderQ(keep){
     };
     box.appendChild(b);
   });
+ }catch(e){showAppError();sectionFallback('opts');}
 }
 function nextQ(){
   if(qi<quiz.length-1){qi++;renderQ();}
